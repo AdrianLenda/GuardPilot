@@ -58,6 +58,7 @@ def classify_text(text: str) -> Tuple[str, List[str]]:
 def classify_risk(text: str) -> Tuple[str, List[str]]:
     """
     Alias for classify_text to maintain backward compatibility.
+backend/app/utils/parquet_logger.py
     """
     return classify_text(text)
 
