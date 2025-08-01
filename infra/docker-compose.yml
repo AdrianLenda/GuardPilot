@@ -1,9 +1,45 @@
 version: "3.9"
+version: "3.9"
 services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: guardpilot
+      POSTGRES_PASSWORD: guardpilot
+      POSTGRES_DB: guardpilot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   backend:
     build: ../backend
-    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgres://guardpilot:guardpilot@postgres:5432/guardpilot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
   ui:
     build: ../ui
-    ports: ["8501:8501"]
-    depends_on: [backend]
+    environment:
+      BACKEND_URL: http://backend:8080
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+  caddy:
+    image: caddy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on:
+      - backend
+      - ui
+
+volumes:
+  postgres_data:
+  caddy_data:

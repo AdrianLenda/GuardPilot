@@ -1,0 +1,27 @@
+{
+    # Global options for Caddy
+    email admin@example.com
+    auto_https on
+}
+
+# Reverse proxy for GuardPilot
+https://guardpilot.local {
+    # Proxy API requests to FastAPI backend
+    reverse_proxy /api/* backend:8000 {
+        header_up Host {http.reverse_proxy.upstream.hostport}
+    }
+
+    # Proxy all other requests to Streamlit UI
+    reverse_proxy /* ui:8501 {
+        header_up Host {http.reverse_proxy.upstream.hostport}
+    }
+
+    # Access logs stored in /data
+    log {
+        output file /data/caddy/access.log
+        format json
+    }
+
+    # TODO: configure OpenID Connect authentication using caddy-auth-portal plugin
+    # TODO: implement object lock or immutable logs via underlying file system
+}
