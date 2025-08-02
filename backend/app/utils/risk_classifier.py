@@ -22,7 +22,7 @@ def _load_keywords() -> Dict[str, List[str]]:
     global _KEYWORDS_CACHE
     if _KEYWORDS_CACHE is not None:
         return _KEYWORDS_CACHE
-        default_path = Path(__file__).resolve().parent / "config" / "risk_keywords.yaml"
+    default_path = Path(__file__).resolve().parent / "config" / "risk_keywords.yaml"
     keywords_file = os.getenv("RISK_KEYWORDS_FILE", str(default_path))
     data: Dict[str, List[str]] = {}
     if yaml is not None and os.path.exists(keywords_file):
