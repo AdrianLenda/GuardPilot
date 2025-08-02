@@ -22,7 +22,6 @@ def _load_keywords() -> Dict[str, List[str]]:
     global _KEYWORDS_CACHE
     if _KEYWORDS_CACHE is not None:
         return _KEYWORDS_CACHE
-
         default_path = Path(__file__).resolve().parent / "config" / "risk_keywords.yaml"
     keywords_file = os.getenv("RISK_KEYWORDS_FILE", str(default_path))
     data: Dict[str, List[str]] = {}
@@ -58,7 +57,6 @@ def classify_text(text: str) -> Tuple[str, List[str]]:
 def classify_risk(text: str) -> Tuple[str, List[str]]:
     """
     Alias for classify_text to maintain backward compatibility.
-backend/app/utils/parquet_logger.py
     """
     return classify_text(text)
 
