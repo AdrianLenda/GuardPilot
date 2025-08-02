@@ -1,5 +1,5 @@
 import os
-from contextlib import contextmanager
+from typing import Generator
 from sqlmodel import SQLModel, create_engine, Session
 
 # Database URL is provided via environment variable in docker-compose
@@ -15,10 +15,7 @@ def init_db():
     from .models import ConversationLog
     SQLModel.metadata.create_all(engine)
 
-@contextmanager
-def get_session():
-    """
-    Context-managed session generator for dependency injection in FastAPI.
-    """
+def get_session() -> Generator[Session, None, None]:
+    """Yield a database session for FastAPI dependencies."""
     with Session(engine) as session:
         yield session
