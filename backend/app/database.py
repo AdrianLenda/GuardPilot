@@ -12,7 +12,7 @@ def init_db():
     """
     Initialize database by creating tables. Should be called on application startup.
     """
-    from .models import ConversationLog
+    from .models import ConversationLog  # noqa: F401
     SQLModel.metadata.create_all(engine)
 
 def get_session() -> Generator[Session, None, None]:

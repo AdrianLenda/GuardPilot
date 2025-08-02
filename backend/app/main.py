@@ -92,6 +92,6 @@ def get_logs(session: Session = Depends(get_session)) -> List[ConversationLog]:
 @app.get("/risk_incidents")
 def get_risk_incidents(session: Session = Depends(get_session)) -> List[ConversationLog]:
     stmt = select(ConversationLog).where(
-        (ConversationLog.pii_detected == True) | (ConversationLog.risk_level == "high-risk")
+        ConversationLog.pii_detected | (ConversationLog.risk_level == "high-risk")
     )
     return session.exec(stmt).all()
