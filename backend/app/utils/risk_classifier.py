@@ -53,3 +53,12 @@ def classify_text(text: str) -> Tuple[str, List[str]]:
                 break
     risk = "high-risk" if matched_categories else "limited-risk"
     return risk, matched_categories
+
+
+def classify_risk(text: str) -> Tuple[str, List[str]]:
+    """
+    Alias for classify_text to maintain backward compatibility.
+backend/app/utils/parquet_logger.py
+    """
+    return classify_text(text)
+
