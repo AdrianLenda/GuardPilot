@@ -29,13 +29,16 @@ def append_log(entry: Dict[str, Any]) -> None:
     the previous hash concatenated with the CSV representation of the new row.
     """
     # Convert entry to DataFrame
-    df = pd.DataFrame([entry])
+    new_row = pd.DataFrame([entry])
 
-    # Write or append to Parquet file
+    # Persist to Parquet, emulating append when using pyarrow
     if PARQUET_FILE.exists():
-        df.to_parquet(PARQUET_FILE, engine="pyarrow", append=True, index=False)
+        existing = pd.read_parquet(PARQUET_FILE, engine="pyarrow")
+        df = pd.concat([existing, new_row], ignore_index=True)
     else:
-        df.to_parquet(PARQUET_FILE, engine="pyarrow", index=False)
+        df = new_row
+
+    df.to_parquet(PARQUET_FILE, engine="pyarrow", index=False)
 
     # Compute new hash chaining previous hash and new row data
     prev_hash = ""
@@ -46,7 +49,7 @@ def append_log(entry: Dict[str, Any]) -> None:
                 prev_hash = lines[-1].strip()
 
     # Use CSV representation of the DataFrame row for hashing consistency
-    new_data = df.to_csv(index=False).encode("utf-8")
+    new_data = new_row.to_csv(index=False).encode("utf-8")
     new_hash = _compute_sha256(prev_hash.encode("utf-8") + new_data)
 
     # Append new hash to the chain file
