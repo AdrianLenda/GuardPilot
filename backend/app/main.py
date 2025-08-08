@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from fastapi import FastAPI, Depends, HTTPException
 from sqlmodel import Session, select
-from typing import List, Optional
 import uuid
 import os
 import asyncio
@@ -20,8 +19,8 @@ class Message(BaseModel):
     content: str
 
 class LLMRequest(BaseModel):
-    conversation_id: Optional[str] = None
-    messages: List[Message]
+    conversation_id: str | None = None
+    messages: list[Message]
 
 class LLMResponse(BaseModel):
     conversation_id: str
@@ -86,11 +85,17 @@ async def proxy(request: LLMRequest, session: Session = Depends(get_session)) ->
     return LLMResponse(conversation_id=conv_id, reply=reply)
 
 @app.get("/logs")
-def get_logs(session: Session = Depends(get_session)) -> List[ConversationLog]:
-    return session.exec(select(ConversationLog)).all()
+def get_logs(
+    conversation_id: str | None = None,
+    session: Session = Depends(get_session),
+) -> list[ConversationLog]:
+    stmt = select(ConversationLog)
+    if conversation_id:
+        stmt = stmt.where(ConversationLog.conversation_id == conversation_id)
+    return session.exec(stmt).all()
 
 @app.get("/risk_incidents")
-def get_risk_incidents(session: Session = Depends(get_session)) -> List[ConversationLog]:
+def get_risk_incidents(session: Session = Depends(get_session)) -> list[ConversationLog]:
     stmt = select(ConversationLog).where(
         ConversationLog.pii_detected | (ConversationLog.risk_level == "high-risk")
     )
