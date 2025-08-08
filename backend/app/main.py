@@ -86,8 +86,14 @@ async def proxy(request: LLMRequest, session: Session = Depends(get_session)) ->
     return LLMResponse(conversation_id=conv_id, reply=reply)
 
 @app.get("/logs")
-def get_logs(session: Session = Depends(get_session)) -> List[ConversationLog]:
-    return session.exec(select(ConversationLog)).all()
+def get_logs(
+    conversation_id: Optional[str] = None,
+    session: Session = Depends(get_session),
+) -> List[ConversationLog]:
+    stmt = select(ConversationLog)
+    if conversation_id:
+        stmt = stmt.where(ConversationLog.conversation_id == conversation_id)
+    return session.exec(stmt).all()
 
 @app.get("/risk_incidents")
 def get_risk_incidents(session: Session = Depends(get_session)) -> List[ConversationLog]:
