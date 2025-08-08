@@ -54,3 +54,15 @@ def test_logs_filter_by_conversation_id():
         logs = response.json()
         assert len(logs) == 1
         assert logs[0]["conversation_id"] == "conv-1"
+
+
+def test_logs_filter_with_unknown_conversation_id():
+    with TestClient(app) as client:
+        payload = {
+            "conversation_id": "conv-x",
+            "messages": [{"role": "user", "content": "hey"}],
+        }
+        client.post("/proxy", json=payload)
+        response = client.get("/logs", params={"conversation_id": "missing"})
+        assert response.status_code == 200
+        assert response.json() == []
