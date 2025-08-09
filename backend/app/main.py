@@ -36,7 +36,7 @@ def on_startup() -> None:
 def health() -> dict:
     return {"status": "ok"}
 
-async def call_llm(prompt: str) -> str:
+async def call_llm(messages: list[Message]) -> str:
     api_key = os.getenv("OPENAI_API_KEY")
     if api_key:
         def _call() -> str:
@@ -47,7 +47,7 @@ async def call_llm(prompt: str) -> str:
             }
             data = {
                 "model": os.getenv("OPENAI_MODEL", "gpt-3.5-turbo"),
-                "messages": [{"role": "user", "content": prompt}],
+                "messages": [m.dict() for m in messages],
                 "temperature": 0.7,
             }
             response = requests.post(url, json=data, headers=headers, timeout=60)
@@ -56,7 +56,8 @@ async def call_llm(prompt: str) -> str:
             return resp_json["choices"][0]["message"]["content"]
         return await asyncio.to_thread(_call)
     else:
-        return f"Echo: {prompt}"
+        joined = " ".join(m.content for m in messages)
+        return f"Echo: {joined}"
 
 @app.post("/proxy", response_model=LLMResponse)
 async def proxy(request: LLMRequest, session: Session = Depends(get_session)) -> LLMResponse:
@@ -64,7 +65,7 @@ async def proxy(request: LLMRequest, session: Session = Depends(get_session)) ->
     if not request.messages:
         raise HTTPException(status_code=400, detail="No messages provided")
     prompt = request.messages[-1].content
-    reply = await call_llm(prompt)
+    reply = await call_llm(request.messages)
     combined = f"{prompt} {reply}"
     detected = detect_pii(combined)
     pii_detected = len(detected) > 0
