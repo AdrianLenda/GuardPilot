@@ -29,9 +29,16 @@ class LLMResponse(BaseModel):
 
 app = FastAPI()
 
+
+@app.get("/")
+def root() -> dict:
+    return {"status": "GuardPilot API", "docs_url": "/docs"}
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     init_db()
+
 
 @app.get("/health")
 def health() -> dict:
