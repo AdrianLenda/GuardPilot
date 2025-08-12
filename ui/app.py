@@ -3,6 +3,7 @@ import os
 import requests
 import streamlit as st
 
+# Base URL for the FastAPI backend; override with BACKEND_URL env var.
 BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
 
 st.title("GuardPilot Chat")
