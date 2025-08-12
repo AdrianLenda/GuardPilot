@@ -14,6 +14,7 @@ if "conversation_id" not in st.session_state:
 
 
 def send_message() -> None:
+    """Send the user's prompt to the backend and store the reply."""
     user_input = st.session_state.user_input.strip()
     if not user_input:
         return
