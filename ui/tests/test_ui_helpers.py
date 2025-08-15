@@ -51,3 +51,4 @@ def test_get_config_models(monkeypatch):
     cfg = helpers.get_config()
     assert cfg["models"] == ["m1", "m2"]
     assert cfg["default_model"] == "m1"
+
