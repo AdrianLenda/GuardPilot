@@ -1,23 +1,32 @@
 name: CI
-
 on:
-  push:
-    branches: [dev, main]
   pull_request:
-
+    branches: [ "dev" ]
+  push:
+    branches: [ "dev" ]
 jobs:
-  backend-test-lint:
+  build-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Install & test
+          python-version: "3.12"
+      - name: Install tools
         run: |
-          pip install -r requirements.txt pytest ruff
-          ruff check .
-          pytest -q || true
+          python -m pip install --upgrade pip
+          pip install ruff black pytest pytest-cov
+          if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
+          if [ -f ui/requirements.txt ]; then pip install -r ui/requirements.txt; fi
+      - name: Lint (ruff)
+        run: ruff check .
+      - name: Format check (black)
+        run: black --check .
+      - name: i18n parity
+        run: python scripts/check_i18n_parity.py
+      - name: Tests (pytest)
+        env:
+          OPENAI_API_KEY: ""
+          PYTHONWARNINGS: ignore::DeprecationWarning
+        run: |
+          pytest -q --cov=backend --cov=ui --cov-report=term-missing

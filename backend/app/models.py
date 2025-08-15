@@ -9,6 +9,7 @@ class ConversationLog(SQLModel, table=True):
     """
     Represents a single prompt/response exchange with metadata.
     """
+
     id: Optional[int] = Field(default=None, primary_key=True)
     conversation_id: str = Field(index=True)
     prompt: str

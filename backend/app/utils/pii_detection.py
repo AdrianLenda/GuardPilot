@@ -19,6 +19,7 @@ VAT_PATTERN = re.compile(r"\bPL\d{10}\b", re.IGNORECASE)
 
 _nlp_model = None
 
+
 def _load_model():
     """Lazily load the spaCy model for entity recognition."""
     global _nlp_model
@@ -31,6 +32,7 @@ def _load_model():
         else:
             _nlp_model = None
     return _nlp_model
+
 
 def detect_pii(text: str) -> List[str]:
     """
