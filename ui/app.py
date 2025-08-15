@@ -6,7 +6,7 @@ st.title("GuardPilot Chat")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "conversation_id" not in st.session_state:
-    st.session_state.conversation_id = None     
+    st.session_state.conversation_id = None
 
 
 def send_message() -> None:
@@ -40,4 +40,3 @@ for msg in st.session_state.messages:
 
 st.text_input("Message", key="user_input")
 st.button("Send", on_click=send_message)
-

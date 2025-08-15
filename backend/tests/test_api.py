@@ -40,7 +40,10 @@ def test_proxy_and_logs():
 def test_conversation_history():
     with TestClient(app) as client:
         conv_id = "conv-hist"
-        first = {"conversation_id": conv_id, "messages": [{"role": "user", "content": "hello"}]}
+        first = {
+            "conversation_id": conv_id,
+            "messages": [{"role": "user", "content": "hello"}],
+        }
         first_resp = client.post("/proxy", json=first)
         assert first_resp.status_code == 200
         first_reply = first_resp.json()["reply"]
@@ -62,6 +65,7 @@ def test_conversation_history():
 
         logs = client.get("/logs", params={"conversation_id": conv_id}).json()
         assert len(logs) == 2
+
 
 def test_logs_filter_by_conversation_id():
     with TestClient(app) as client:

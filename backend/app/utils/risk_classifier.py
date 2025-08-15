@@ -59,4 +59,3 @@ def classify_risk(text: str) -> Tuple[str, List[str]]:
     Alias for classify_text to maintain backward compatibility.
     """
     return classify_text(text)
-
