@@ -1,0 +1,14 @@
+{
+  "title": "GuardPilot Chat",
+  "model": "Model",
+  "max_tokens": "Max tokens",
+  "language": "Language",
+  "message": "Message",
+  "send": "Send",
+  "clear_chat": "Clear chat",
+  "error_timeout": "Request timed out",
+  "error_server": "Server error",
+  "error_client": "Client error",
+  "error_validation": "Validation error",
+  "message_too_long": "Message too long"
+}
