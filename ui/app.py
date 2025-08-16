@@ -7,6 +7,7 @@ from requests import HTTPError, Timeout
 
 from helpers import get_config, send_chat, trim_history, t
 
+# Load environment-driven configuration
 cfg = get_config()
 
 if "messages" not in st.session_state:
