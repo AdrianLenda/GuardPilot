@@ -43,3 +43,11 @@ def test_i18n_fallback(monkeypatch):
     translations = {"en": {"greet": "Hello"}, "pl": {}}
     monkeypatch.setattr(helpers, "_TRANSLATIONS", translations)
     assert helpers.t("greet", "pl") == "Hello"
+
+
+def test_get_config_models(monkeypatch):
+    monkeypatch.setenv("DEFAULT_MODEL", "m1")
+    monkeypatch.setenv("MODELS", "m1,m2")
+    cfg = helpers.get_config()
+    assert cfg["models"] == ["m1", "m2"]
+    assert cfg["default_model"] == "m1"

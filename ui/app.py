@@ -12,12 +12,25 @@ cfg = get_config()
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "lang" not in st.session_state:
+    st.session_state.lang = "pl"
     st.session_state.lang = "en"
 
 st.title(t("title", st.session_state.lang))
 
 
 with st.sidebar:
+    lang_choice = st.selectbox(
+        t("language", st.session_state.lang),
+        ["pl", "en"],
+        index=["pl", "en"].index(st.session_state.lang),
+    )
+    if lang_choice != st.session_state.lang:
+        st.session_state.lang = lang_choice
+        st.experimental_rerun()
+    st.session_state.model = st.selectbox(
+        t("model", st.session_state.lang),
+        cfg["models"],
+        index=cfg["models"].index(st.session_state.get("model", cfg["default_model"])),
     st.session_state.model = st.selectbox(
         t("model", st.session_state.lang), [cfg["default_model"]]
     )
@@ -25,6 +38,7 @@ with st.sidebar:
         t("max_tokens", st.session_state.lang),
         min_value=1,
         max_value=4000,
+        value=st.session_state.get("max_tokens", cfg["max_tokens"]),
         value=cfg["max_tokens"],
     )
     st.session_state.lang = st.selectbox(

@@ -1,3 +1,5 @@
+"""Helper utilities for the Streamlit UI."""
+
 from __future__ import annotations
 
 import json
@@ -12,6 +14,18 @@ _TRANSLATIONS: dict[str, dict[str, str]] | None = None
 
 
 def get_config() -> Dict[str, Any]:
+    default_model = os.getenv("DEFAULT_MODEL", "gpt-3.5-turbo-0125")
+    models_env = os.getenv("MODELS")
+    if models_env:
+        models = [m.strip() for m in models_env.split(",") if m.strip()]
+        if default_model not in models:
+            models.insert(0, default_model)
+    else:
+        models = [default_model]
+    return {
+        "api_base": os.getenv("GP_API_BASE", "http://127.0.0.1:8000"),
+        "default_model": default_model,
+        "models": models,
     return {
         "api_base": os.getenv("GP_API_BASE", "http://127.0.0.1:8000"),
         "default_model": os.getenv("DEFAULT_MODEL", "gpt-3.5-turbo-0125"),
