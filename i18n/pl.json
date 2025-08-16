@@ -1,0 +1,14 @@
+{
+  "title": "GuardPilot Czat",
+  "model": "Model",
+  "max_tokens": "Maks tokenów",
+  "language": "Język",
+  "message": "Wiadomość",
+  "send": "Wyślij",
+  "clear_chat": "Wyczyść czat",
+  "error_timeout": "Przekroczono czas oczekiwania",
+  "error_server": "Błąd serwera",
+  "error_client": "Błąd klienta",
+  "error_validation": "Błąd walidacji",
+  "message_too_long": "Wiadomość zbyt długa"
+}
