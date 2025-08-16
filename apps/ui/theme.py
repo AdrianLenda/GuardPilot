@@ -59,5 +59,6 @@ CSS = """
 
 
 def apply_theme() -> None:
+def inject() -> None:
     """Inject custom CSS into the app."""
     st.markdown(CSS, unsafe_allow_html=True)
