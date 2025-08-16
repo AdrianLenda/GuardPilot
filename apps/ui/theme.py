@@ -6,6 +6,7 @@ import streamlit as st
 
 # Global stylesheet for the chat UI.
 THEME_CSS = """
+CSS = """
 <style>
 :root {
   --gp-bg: var(--background-color, #ffffff);
@@ -62,3 +63,6 @@ THEME_CSS = """
 def apply_theme() -> None:
     """Inject custom CSS into the app."""
     st.markdown(THEME_CSS, unsafe_allow_html=True)
+def inject() -> None:
+    """Inject custom CSS into the app."""
+    st.markdown(CSS, unsafe_allow_html=True)

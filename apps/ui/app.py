@@ -13,6 +13,11 @@ from apps.ui.helpers import healthcheck, post_proxy, shape_payload, trim_history
 from apps.ui.i18n import t
 from apps.ui.state import init
 from apps.ui.theme import apply_theme
+from .components import bubble, empty_state, input_bar, sidebar, top_bar
+from .helpers import healthcheck, post_proxy, shape_payload, trim_history
+from .i18n import t
+from .state import init
+from .theme import inject
 
 API_BASE = os.getenv("GP_API_BASE", "http://127.0.0.1:8000")
 
@@ -62,6 +67,7 @@ def send_message(content: str) -> None:
 def main() -> None:
     init()
     apply_theme()
+    inject()
     st.session_state.health = healthcheck(API_BASE)
     top_bar(st.session_state.health, st.session_state.lang)
     sidebar(st.session_state.lang)
