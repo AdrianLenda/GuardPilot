@@ -26,6 +26,9 @@ def get_config() -> Dict[str, Any]:
         "api_base": os.getenv("GP_API_BASE", "http://127.0.0.1:8000"),
         "default_model": default_model,
         "models": models,
+    return {
+        "api_base": os.getenv("GP_API_BASE", "http://127.0.0.1:8000"),
+        "default_model": os.getenv("DEFAULT_MODEL", "gpt-3.5-turbo-0125"),
         "max_tokens": int(os.getenv("MAX_TOKENS", "256")),
         "history_max_turns": int(os.getenv("HISTORY_MAX_TURNS", "10")),
     }
