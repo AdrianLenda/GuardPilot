@@ -39,7 +39,7 @@ echo "⏳ Uvicorn PID=$UVICORN_PID → http://127.0.0.1:8000"
 # 6) opcjonalnie UI
 if [[ "$WITH_UI" == "--ui" ]]; then
   export GP_API_BASE="${GP_API_BASE:-http://127.0.0.1:8000}"
-  (cd ui && streamlit run app.py --server.port 8501 --server.headless true) &
+  streamlit run apps/ui/app.py --server.port 8501 --server.headless true &
   STREAMLIT_PID=$!
   echo "🖥️  Streamlit PID=$STREAMLIT_PID → http://127.0.0.1:8501"
 fi
