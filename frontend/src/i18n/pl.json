@@ -1,0 +1,22 @@
+{
+  "title": "GuardPilot",
+  "tagline": "Bezpieczne rozmowy AI",
+  "health_online": "Online",
+  "health_offline": "Offline",
+  "sidebar_header": "Ustawienia czatu",
+  "model_label": "Model",
+  "language_label": "Język",
+  "max_tokens_label": "Maks. tokenów",
+  "history_length_label": "Długość historii (tury)",
+  "new_chat_button": "Nowy czat",
+  "clear_chat_button": "Wyczyść czat",
+  "message_input_placeholder": "Wpisz wiadomość...",
+  "send_button": "Wyślij",
+  "error_429": "Przekroczono limit zapytań. Spróbuj ponownie później.",
+  "error_413": "Wiadomość jest za długa. Skróć treść.",
+  "error_422": "Nieprawidłowe dane. Sprawdź wiadomość.",
+  "error_500": "Błąd serwera. Spróbuj ponownie później.",
+  "error_timeout": "Przekroczono czas oczekiwania. Spróbuj ponownie.",
+  "error_unknown": "Wystąpił nieoczekiwany błąd.",
+  "timestamp_format": "HH:mm"
+}

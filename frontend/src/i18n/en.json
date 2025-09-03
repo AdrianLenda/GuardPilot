@@ -1,0 +1,22 @@
+{
+  "title": "GuardPilot Chat",
+  "tagline": "Secure AI Conversations",
+  "health_online": "Online",
+  "health_offline": "Offline",
+  "sidebar_header": "Chat Settings",
+  "model_label": "Model",
+  "language_label": "Language",
+  "max_tokens_label": "Max tokens",
+  "history_length_label": "History length (turns)",
+  "new_chat_button": "New chat",
+  "clear_chat_button": "Clear chat",
+  "message_input_placeholder": "Type your message...",
+  "send_button": "Send",
+  "error_429": "Rate limit exceeded. Please try again later.",
+  "error_413": "Payload too large. Please shorten your message.",
+  "error_422": "Invalid input. Please check your message.",
+  "error_500": "Server error. Please try again later.",
+  "error_timeout": "Request timed out. Please try again.",
+  "error_unknown": "An unexpected error occurred.",
+  "timestamp_format": "HH:mm"
+}
