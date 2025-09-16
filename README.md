@@ -55,3 +55,29 @@ pg_dump --no-owner --file backup.sql "$DATABASE_URL"
 ```
 
 See `sops.md` for detailed backup/restore procedures and other operational considerations.
+
+
+## Pre-commit Hooks
+
+This repository uses [pre-commit](https://pre-commit.com/) to automate code quality checks before each commit. After cloning the repository, install the hooks with:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+This installs Git hooks that will run `ruff` (linting), `black` (formatting), `mypy` (type checking), `eslint`/`prettier` (for the JavaScript/TypeScript code) and `gitleaks` (secret scanning) on the staged files. To run all hooks against the entire repository, run:
+
+```bash
+pre-commit run --all-files
+```
+
+## Continuous Integration (CI)
+
+GitHub Actions workflows enforce the same checks in CI. The workflows live under `.github/workflows/` and are triggered on pushes and pull requests:
+
+- **backend.yml** – Sets up Python, installs dependencies, runs `ruff`/`black`/`mypy`, and executes the backend test suite (`pytest`).
+- **frontend.yml** – Sets up Node.js, runs `npm ci` to install dependencies, lints the front‑end code with ESLint/Prettier, and runs unit tests via `npm test` (Vitest).
+- **Playwright smoke test** – A Playwright configuration (`playwright.config.ts`) and test (`playwright-tests/home.spec.ts`) provide a simple end‑to‑end check that the React app starts and renders the expected title. This test runs in its own workflow.
+
+CI must pass before merging changes into the main branch.
