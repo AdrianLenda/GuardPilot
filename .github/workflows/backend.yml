@@ -1,0 +1,39 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [dev, mainn]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
+      - '.pre-commit-config.yaml'
+  pull_request:
+    branches: [dev, mainn]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
+      - '.pre-commit-config.yaml'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install ruff black mypy
+    - name: Lint with Ruff
+      run: ruff check .
+    - name: Check formatting with Black
+      run: black --check .
+    - name: Type check with mypy
+      run: mypy .
+    - name: Run tests
+      run: pytest -q
