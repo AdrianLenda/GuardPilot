@@ -16,16 +16,16 @@ triggers:
 - **Migrations**: Alembic
 
 ## 📝 Model Definitions
-- All models in \ackend/app/models.py\
+- All models in `backend/app/models.py`
 - Define all fields with proper types
 - Add indexes for frequently-queried columns
 
 ## 🔄 Migrations (Alembic)
-\\\ash
+```bash
 alembic revision --autogenerate -m "Add user table"
 alembic upgrade head
 alembic downgrade -1
-\\\
+```
 
 ## 📊 Indexes
 - Index on unique fields (email, username)

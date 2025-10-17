@@ -18,18 +18,15 @@ triggers:
 
 ## 🐍 Backend Tests (pytest)
 - Structure: unit/, integration/, fixtures.py
-- Running: \pytest\, \pytest -v --cov\
+- Running: `pytest`, `pytest -v --cov`
 
 ## ⚛️ Frontend Tests (Vitest)
-- Location: \src/__tests__/\
-- Running: \
-pm test\, \
-pm test -- --coverage\
+- Location: `src/__tests__/`
+- Running: `npm test`, `npm test -- --coverage`
 
 ## 🎭 E2E Tests (Playwright)
-- Location: \playwright-tests/\
-- Running: \
-px playwright test\
+- Location: `playwright-tests/`
+- Running: `npx playwright test`
 
 ## 🎨 Best Practices
 - Test behavior, not implementation

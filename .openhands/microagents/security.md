@@ -24,7 +24,7 @@ triggers:
 - NEVER trust client-side validation
 
 ## 🚫 CRITICAL - NEVER DO
-- ❌ Don't commit \.env\, API keys, tokens
+- ❌ Don't commit `.env`, API keys, tokens
 - ❌ Don't use SQL injection-prone queries (use ORM)
 - ❌ Don't return sensitive data in API
 - ❌ Don't log sensitive data
@@ -41,5 +41,5 @@ triggers:
 - NEVER construct SQL strings with user input
 
 ## 🔑 Environment Variables
-- Store in \.env\ (gitignored)
+- Store in `.env` (gitignored)
 - Production: AWS Secrets Manager / Azure Key Vault

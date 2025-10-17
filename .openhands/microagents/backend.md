@@ -16,7 +16,7 @@ triggers:
 - **Linting**: ruff, black, mypy
 
 ## 🗄️ Database and SQLModel
-- All models in \pp/models.py\
+- All models in `app/models.py`
 - Use SQLModel for models (ORM + Pydantic validation)
 - Migrations: Alembic
 
@@ -26,8 +26,8 @@ triggers:
 - Error handling with appropriate HTTP codes
 
 ## ✅ Testing (pytest)
-- Location: \ackend/tests/\
-- Naming: \	est_*.py\
+- Location: `backend/tests/`
+- Naming: `test_*.py`
 - Each function/endpoint must have a test
 
 ## 📦 Dependencies
